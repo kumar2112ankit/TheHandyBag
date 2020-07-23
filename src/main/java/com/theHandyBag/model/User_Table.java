@@ -1,62 +1,77 @@
 package com.theHandyBag.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table
 public class User_Table {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
-	private Long user_id;
-	private String user_name;
-	private String email;
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
+	@Column(name = "userId")
+	private Long userId;
+	@Column(name = "userName")
+	private String userName;
+	@Column(name = "emailId")
+	private String emailId;
+	@Column(name = "password")
 	private String password;
-	private String old_password;
+	@Column(name = "oldPassword")
+	private String oldPassword;
+	@Column(name = "name")
 	private String name;
-	public Long getUser_id() {
-		return user_id;
+
+	public Long getUserId() {
+		return userId;
 	}
-	public void setUser_id(Long user_id) {
-		this.user_id = user_id;
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
-	public String getUser_name() {
-		return user_name;
+
+	public String getUserName() {
+		return userName;
 	}
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	public String getEmail() {
-		return email;
+
+	public String getEmailId() {
+		return emailId;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getOld_password() {
-		return old_password;
+
+	public String getOldPassword() {
+		return oldPassword;
 	}
-	public void setOld_password(String old_password) {
-		this.old_password = old_password;
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Override
-	public String toString() {
-		return "User_Table [user_id=" + user_id + ", user_name=" + user_name + ", email=" + email + ", password="
-				+ password + ", old_password=" + old_password + ", name=" + name + "]";
-	}
-	
 }

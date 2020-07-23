@@ -1,51 +1,93 @@
 package com.theHandyBag.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table
 public class Blog {
-	 @javax.persistence.Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
-	  public Long id;
 
-	  public String firstName;
-	  public String lastName;
+	@Id
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
+	@OneToMany
+	@Column(name = "blogId")
+	private Long blogId;
+	@Column(name = "blogName")
+	private String blogName;
+	@Column(name = "blog")
+	private String blog;
+	@Column(name = "createDate")
+	private Long createDate;
+	@Column(name = "editDate")
+	private Long editDate;
+	@Column(name = "location")
+	private String location;
 
-	  public Long getId() {
-		return id;
+	@OneToOne(mappedBy = "User_Table", fetch = FetchType.LAZY)
+	private User_Table user_Table;
+
+	public Long getBlogId() {
+		return blogId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setBlogId(Long blogId) {
+		this.blogId = blogId;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getBlogName() {
+		return blogName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setBlogName(String blogName) {
+		this.blogName = blogName;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getBlog() {
+		return blog;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setBlog(String blog) {
+		this.blog = blog;
 	}
 
-	public Blog() {}
+	public Long getCreateDate() {
+		return createDate;
+	}
 
-	  public Blog(String firstName, String lastName) {
-	    this.firstName = firstName;
-	    this.lastName = lastName;
-	  }
+	public void setCreateDate(Long createDate) {
+		this.createDate = createDate;
+	}
 
-	 }
+	public Long getEditDate() {
+		return editDate;
+	}
+
+	public void setEditDate(Long editDate) {
+		this.editDate = editDate;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public User_Table getUser_Table() {
+		return user_Table;
+	}
+
+	public void setUser_Table(User_Table user_Table) {
+		this.user_Table = user_Table;
+	}
+}
