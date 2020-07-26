@@ -2,10 +2,14 @@ package com.theHandyBag.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
 @Table
@@ -16,7 +20,9 @@ public class Multi_Medi_Type {
 	private Date create_date;
 	private String status;
 	//user id of blog table
-	private String user_id;
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinColumn(name = "blogId")
+	private Blog blog;
 	private String location;
 	private String meida_type;
 	public Long getMedia_id() {
@@ -37,11 +43,12 @@ public class Multi_Medi_Type {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getUser_id() {
-		return user_id;
+	
+	public Blog getBlog() {
+		return blog;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setBlog(Blog blog) {
+		this.blog = blog;
 	}
 	public String getLocation() {
 		return location;
@@ -55,10 +62,20 @@ public class Multi_Medi_Type {
 	public void setMeida_type(String meida_type) {
 		this.meida_type = meida_type;
 	}
-	@Override
-	public String toString() {
-		return "Multi_Medi_Type [media_id=" + media_id + ", create_date=" + create_date + ", status=" + status
-				+ ", user_id=" + user_id + ", location=" + location + ", meida_type=" + meida_type + "]";
+	public Multi_Medi_Type(Long media_id, Date create_date, String status, Blog blog, String location,
+			String meida_type) {
+		super();
+		this.media_id = media_id;
+		this.create_date = create_date;
+		this.status = status;
+		this.blog = blog;
+		this.location = location;
+		this.meida_type = meida_type;
 	}
+	public Multi_Medi_Type() {
+		
+	}
+	
+	
 	
 }

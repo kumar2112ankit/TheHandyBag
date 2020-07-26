@@ -18,11 +18,8 @@ public class BlogeController {
 
 	@GetMapping(value = "/test",produces = MediaType.APPLICATION_JSON_VALUE)
 	public Blog findBlo() {
-		Blog blog=new Blog();
-		blog.setFirstName("himalya");
-		blog.setLastName("velly");
-		service.allBlogService(blog);
-		return blog;
+	
+		return null;
 
 	}
 

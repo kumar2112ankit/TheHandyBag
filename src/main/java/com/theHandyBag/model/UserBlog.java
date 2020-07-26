@@ -1,4 +1,4 @@
-package com.theHandyBag.model;
+ package com.theHandyBag.model;
 
 import java.util.Date;
 
