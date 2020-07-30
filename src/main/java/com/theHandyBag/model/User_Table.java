@@ -1,5 +1,7 @@
 package com.theHandyBag.model;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -8,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,10 +25,9 @@ public class User_Table {
 	}
 
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
-	private Long userId;
+	private Integer userId;
 	@Column(name = "userName")
 	private String userName;
 	@Column(name = "emailId")
@@ -37,22 +39,14 @@ public class User_Table {
 	@Column(name = "name")
 	private String name;
 
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "blogId", fetch = FetchType.LAZY)
-	private Set<Blog> blog;
+	
+	
 
-	public Set<Blog> getBlog() {
-		return blog;
-	}
-
-	public void setBlog(Set<Blog> blog) {
-		this.blog = blog;
-	}
-
-	public Long getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Long userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
@@ -95,4 +89,23 @@ public class User_Table {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public User_Table(Integer userId, String userName, String emailId, String password, String oldPassword, String name,
+			Set<Blog> blog) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.emailId = emailId;
+		this.password = password;
+		this.oldPassword = oldPassword;
+		this.name = name;
+
+	}
+
+	@Override
+	public String toString() {
+		return "User_Table [userId=" + userId + ", userName=" + userName + ", emailId=" + emailId + ", password="
+				+ password + ", oldPassword=" + oldPassword + ", name=" + name + "]";
+	}
+
 }

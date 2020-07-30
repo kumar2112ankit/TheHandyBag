@@ -1,5 +1,7 @@
 package com.theHandyBag.model;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -7,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,37 +18,35 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table
 public class Blog {
 
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-
-	private Long blogId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer blog_id;
 	@Column(name = "blogName")
 	private String blogName;
 	@Column(name = "blog")
 	private String blog;
 
-	@ManyToOne
-	@JoinColumn
-	private BlogCategory category;
+	
+	private String category;
 	@Column(name = "createDate")
-	private Long createDate;
+	private String createDate;
 	@Column(name = "editDate")
-	private Long editDate;
+	private String editDate;
 	@Column(name = "location")
 	private String location;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "media_id", fetch = FetchType.LAZY)
+	@OneToMany(targetEntity = Multi_Medi_Type.class, fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinColumn(name = "media_fk",referencedColumnName = "blog_id")
 	private Set<Multi_Medi_Type> media;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	// @Column(name = "user_id")
-	private User_Table user_Table;
+	
+	private Integer userId;
 
 	
 	
@@ -57,12 +58,12 @@ public class Blog {
 		this.media = media;
 	}
 
-	public Long getBlogId() {
-		return blogId;
+	public Integer getBlogId() {
+		return blog_id;
 	}
 
-	public void setBlogId(Long blogId) {
-		this.blogId = blogId;
+	public void setBlogId(Integer blog_id) {
+		this.blog_id = blog_id;
 	}
 
 	public String getBlogName() {
@@ -81,19 +82,19 @@ public class Blog {
 		this.blog = blog;
 	}
 
-	public Long getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Long createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
-	public Long getEditDate() {
+	public String getEditDate() {
 		return editDate;
 	}
 
-	public void setEditDate(Long editDate) {
+	public void setEditDate(String editDate) {
 		this.editDate = editDate;
 	}
 
@@ -105,27 +106,30 @@ public class Blog {
 		this.location = location;
 	}
 
-	public BlogCategory getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(BlogCategory category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
-	public User_Table getUser_Table() {
-		return user_Table;
+	public Blog() {
+		
 	}
 
-	public void setUser_Table(User_Table user_Table) {
-		this.user_Table = user_Table;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	
-	public Blog(Long blogId, String blogName, String blog, BlogCategory category, Long createDate, Long editDate,
-			String location, Set<Multi_Medi_Type> media, User_Table user_Table) {
-		super();
-		this.blogId = blogId;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public Blog(Integer blog_id, String blogName, String blog, String category, String createDate, String editDate,
+			String location, Set<Multi_Medi_Type> media, Integer userId) {
+		
+		this.blog_id = blog_id;
 		this.blogName = blogName;
 		this.blog = blog;
 		this.category = category;
@@ -133,12 +137,33 @@ public class Blog {
 		this.editDate = editDate;
 		this.location = location;
 		this.media = media;
-		this.user_Table = user_Table;
+		this.userId = userId;
 	}
 
-	public Blog() {
-		
+	@Override
+	public String toString() {
+		final int maxLen = 10;
+		return "Blog [blog_id=" + blog_id + ", blogName=" + blogName + ", blog=" + blog + ", category=" + category
+				+ ", createDate=" + createDate + ", editDate=" + editDate + ", location=" + location + ", media="
+				+ (media != null ? toString(media, maxLen) : null) + ", userId=" + userId + "]";
 	}
+
+	private String toString(Collection<?> collection, int maxLen) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("[");
+		int i = 0;
+		for (Iterator<?> iterator = collection.iterator(); iterator.hasNext() && i < maxLen; i++) {
+			if (i > 0)
+				builder.append(", ");
+			builder.append(iterator.next());
+		}
+		builder.append("]");
+		return builder.toString();
+	}
+
+	
+
+	
 	
 
 }

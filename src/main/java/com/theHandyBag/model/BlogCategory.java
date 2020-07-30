@@ -3,6 +3,8 @@
  */
 package com.theHandyBag.model;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,23 +22,21 @@ import javax.persistence.Table;
 
 	Jul 25, 2020
  */
-@Entity
-@Table
+
 public class BlogCategory {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long category_id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer category_id;
 	private String category;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "blogId", fetch = FetchType.LAZY)
+	//@OneToMany(cascade = CascadeType.ALL, mappedBy = "blog_id", fetch = FetchType.LAZY)
 	private Set<Blog> blog;
-
-	public Long getId() {
+	public Integer getId() {
 		return category_id;
 	}
 
-	public void setId(Long category_id) {
+	public void setId(Integer category_id) {
 		this.category_id = category_id;
 	}
 
@@ -56,7 +56,7 @@ public class BlogCategory {
 		this.blog = blog;
 	}
 
-	public BlogCategory(Long category_id, String category, Set<Blog> blog) {
+	public BlogCategory(Integer category_id, String category, Set<Blog> blog) {
 		super();
 		this.category_id = category_id;
 		this.category = category;
@@ -66,6 +66,12 @@ public class BlogCategory {
 	public BlogCategory() {
 		
 	}
+
+	
+
+	
+
+	
 	
 
 }

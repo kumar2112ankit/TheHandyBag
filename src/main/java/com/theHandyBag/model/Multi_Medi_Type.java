@@ -11,30 +11,38 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table
 public class Multi_Medi_Type {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long media_id;
-	private Date create_date;
+	private Integer media_id;
+	private String create_date;
 	private String status;
-	//user id of blog table
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinColumn(name = "blogId")
+
+	/*
+	 * @ManyToOne(cascade = CascadeType.ALL)
+	 * 
+	 * @JoinColumn(name = "blog_id",referencedColumnName = "blog_id")
+	 */
+	@ManyToOne
+	@JoinColumn(name = "media_fk")
+	@JsonIgnore
 	private Blog blog;
 	private String location;
 	private String meida_type;
-	public Long getMedia_id() {
+	public Integer getMedia_id() {
 		return media_id;
 	}
-	public void setMedia_id(Long media_id) {
+	public void setMedia_id(Integer media_id) {
 		this.media_id = media_id;
 	}
-	public Date getCreate_date() {
+	public String getCreate_date() {
 		return create_date;
 	}
-	public void setCreate_date(Date create_date) {
+	public void setCreate_date(String create_date) {
 		this.create_date = create_date;
 	}
 	public String getStatus() {
@@ -43,7 +51,6 @@ public class Multi_Medi_Type {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
 	public Blog getBlog() {
 		return blog;
 	}
@@ -62,9 +69,9 @@ public class Multi_Medi_Type {
 	public void setMeida_type(String meida_type) {
 		this.meida_type = meida_type;
 	}
-	public Multi_Medi_Type(Long media_id, Date create_date, String status, Blog blog, String location,
+	public Multi_Medi_Type(Integer media_id, String create_date, String status, Blog blog, String location,
 			String meida_type) {
-		super();
+		
 		this.media_id = media_id;
 		this.create_date = create_date;
 		this.status = status;
@@ -75,7 +82,11 @@ public class Multi_Medi_Type {
 	public Multi_Medi_Type() {
 		
 	}
-	
+	@Override
+	public String toString() {
+		return "Multi_Medi_Type [media_id=" + media_id + ", create_date=" + create_date + ", status=" + status
+				+ ", blog=" + blog + ", location=" + location + ", meida_type=" + meida_type + "]";
+	}
 	
 	
 }
